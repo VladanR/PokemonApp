@@ -1,7 +1,7 @@
                                             POKEMON APP
                                             
 This is a simple App made to showcase iOS development and Swift skills, built using the Model-View-ViewModel (MVVM) architecture pattern. 
-The app utilizes the PokeAPI to fetch and display information about Pokémon. It employs URLSession for networking tasks and Kingfisher for image loading and caching.
+The app utilizes https://pokeapi.co to fetch and display information about Pokémon. It employs URLSession for networking tasks and Kingfisher for image loading and caching.
 
 Implementation Choices:
 
