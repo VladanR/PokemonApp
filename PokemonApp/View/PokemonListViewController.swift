@@ -52,6 +52,7 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
         navigationController?.navigationBar.barTintColor = UIColor.green
         title           = "Pokemon App"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = .white
         fetchPokemonData()
     }
     
@@ -107,6 +108,7 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
         navigationItem.hidesSearchBarWhenScrolling        = false
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate               = self
+        searchController.searchBar.searchTextField.textColor = .white
         
     }
     
@@ -127,6 +129,7 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
         }
         let imageUrl                = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonId).png"
         cell.cellImageView.kf.setImage(with: URL(string: imageUrl))
+        cell.layer.cornerRadius = 20
         return cell
     }
     
@@ -162,7 +165,7 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
         backgroundOfImageView.addSubview(imageView)
         backgroundOfImageView.addSubview(searchNulLabel)
         NSLayoutConstraint.activate([
-            backgroundOfImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backgroundOfImageView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundOfImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundOfImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundOfImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -201,11 +204,13 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
             for poke in listViewModel.pokemonList {
                 guard let name = poke.name else { return }
                 if name.lowercased().contains(searchText.lowercased()) {
-                    self.showImageView(isSearchNil: false)
                     filteredList.append(poke)
-                } else if searchText.count > 2{
-                    self.showImageView(isSearchNil: true)
                 }
+            }
+            if filteredList.isEmpty {
+                self.showImageView(isSearchNil: true)
+            } else {
+                self.showImageView(isSearchNil: false)
             }
         }
         self.collectionView.reloadData()

@@ -36,6 +36,7 @@ class PokemonDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
+        
         configure()
         viewModel.onComplete =  { [weak self] in
             self?.setupDeteailPage()
@@ -111,7 +112,7 @@ class PokemonDetailsViewController: UIViewController {
     }
     
     func configure() {
-        
+        view.backgroundColor = .black
         setupLabelRadius()
         hiddenLabel.isHidden        = true
         hiddenProgress.isHidden     = true
