@@ -32,10 +32,9 @@ class PokemonListViewModel {
     }
     
     func getIdFromUrl(url: String, completionHandler: @escaping (_ resultId: String?) -> (Void))   {
-        var pureId = ""
         if let range = url.range(of: "/pokemon/") {
             let removedUrlFroString = url[range.upperBound...]
-            var pureId = String(removedUrlFroString.dropLast())
+            let pureId = String(removedUrlFroString.dropLast())
             completionHandler(pureId)
         }
     }

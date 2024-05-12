@@ -105,7 +105,7 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
     func configureSearchBar() {
         navigationItem.searchController                   = searchController
         navigationItem.hidesSearchBarWhenScrolling        = false
-        searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate               = self
         
     }
@@ -125,7 +125,7 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
         listViewModel.getIdFromUrl(url: chosedPokemon.url) { resultId in
             self.pokemonId = resultId!
         }
-        var imageUrl                = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonId).png"
+        let imageUrl                = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonId).png"
         cell.cellImageView.kf.setImage(with: URL(string: imageUrl))
         return cell
     }
@@ -141,8 +141,10 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
         detailVC.viewModel.pokeId        =  Int(pokemonId)
         
         DispatchQueue.main.async {
+            self.navigationController?.pushViewController(detailVC, animated: true)
         }
-        self.navigationController?.pushViewController(detailVC, animated: true)
+        
+        
     }
     
     //MARK: - Search Bar

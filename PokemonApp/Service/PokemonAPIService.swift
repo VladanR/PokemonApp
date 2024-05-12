@@ -48,16 +48,16 @@ class PokemonAPIService {
     
     func getPokemonDetails<T: Decodable>(url: String, model: T.Type, completion: @escaping (T) -> (), failure: @escaping(Error) -> ()) {
         
-        guard let url           = URL(string: url) else { return }
+        guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data      = data else {
-                if let error    = error {
+            guard let data = data else {
+                if let error = error {
                     failure(error)
                 }
                 return
             }
             do {
-                let serverData   = try JSONDecoder().decode(T.self, from: data)
+                let serverData = try JSONDecoder().decode(T.self, from: data)
                 onMain {
                     completion(serverData)
                 }

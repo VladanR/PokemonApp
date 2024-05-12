@@ -46,15 +46,15 @@ class PokemonDetailsViewController: UIViewController {
     //MARK: - Presentation
     func setupDeteailPage() {
         self.imageView.contentMode = .scaleAspectFit
-        self.pokeNameLabel?.text             = self.viewModel.chosenPokemon?.name?.firstUppercased
-        self.idLabel.text                    = "#\(self.viewModel.convertStringFromOptInt(value: self.viewModel.chosenPokemon?.id))"
-        self.weightLabel?.text               = "\(viewModel.formatHeighWeight(value: self.viewModel.chosenPokemon?.weight ?? 0)) KG"
-        self.heightLabel?.text               = "\(viewModel.formatHeighWeight(value: self.viewModel.chosenPokemon?.height ?? 0)) M"
-        var imageUrl                         = self.viewModel.setImage()
+        self.pokeNameLabel?.text = self.viewModel.chosenPokemon?.name?.firstUppercased
+        self.idLabel.text = "#\(self.viewModel.convertStringFromOptInt(value: self.viewModel.chosenPokemon?.id))"
+        self.weightLabel?.text = "\(viewModel.formatHeighWeight(value: self.viewModel.chosenPokemon?.weight ?? 0)) KG"
+        self.heightLabel?.text = "\(viewModel.formatHeighWeight(value: self.viewModel.chosenPokemon?.height ?? 0)) M"
+        let imageUrl = self.viewModel.setImage()
         self.imageView.kf.setImage(with: URL(string: imageUrl))
         self.setTypes(typeElements: self.viewModel.chosenPokemon?.types)
         self.setProgressAnimates()
-        var backgroundColor: String          = self.viewModel.chosenPokemon?.types?[0].type?.name ?? ""
+        let backgroundColor: String = self.viewModel.chosenPokemon?.types?[0].type?.name ?? ""
         self.backgroundView.backgroundColor  = UIColor(named: backgroundColor)
         
     }
@@ -64,44 +64,40 @@ class PokemonDetailsViewController: UIViewController {
     }
     
     func setProgressAnimates() {
-        let hp        : Int = viewModel.chosenPokemon?.stats?[0].base_stat ?? 0
-        let atk       : Int = viewModel.chosenPokemon?.stats?[1].base_stat ?? 0
-        let def       : Int = viewModel.chosenPokemon?.stats?[2].base_stat ?? 0
-        let spdef     : Int = viewModel.chosenPokemon?.stats?[4].base_stat ?? 0
+        let hp      : Int = viewModel.chosenPokemon?.stats?[0].base_stat ?? 0
+        let atk     : Int = viewModel.chosenPokemon?.stats?[1].base_stat ?? 0
+        let def     : Int = viewModel.chosenPokemon?.stats?[2].base_stat ?? 0
+        let spdef   : Int = viewModel.chosenPokemon?.stats?[4].base_stat ?? 0
         let exp     : Int = viewModel.chosenPokemon?.base_experience ?? 0
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
-            self.animateStatBars(value: self.formatFloat(value: hp),    bar: self.hpProgressBar)
-            self.animateStatBars(value: self.formatFloat(value: atk),   bar: self.atkProgressBar)
-            self.animateStatBars(value: self.formatFloat(value: def),   bar: self.defProgressBar)
+            self.animateStatBars(value: self.formatFloat(value: hp), bar: self.hpProgressBar)
+            self.animateStatBars(value: self.formatFloat(value: atk), bar: self.atkProgressBar)
+            self.animateStatBars(value: self.formatFloat(value: def), bar: self.defProgressBar)
             self.animateStatBars(value: self.formatFloat(value: spdef), bar: self.expProgressBar)
             self.animateStatBars(value: self.formatFloat(value: exp), bar: self.spdProgressBar)
         }
     }
     
     func formatFloat(value: Int) -> Float {
-        var formatedValue: Float = (Float(value) * 1.0) / 120
+        let formatedValue: Float = (Float(value) * 1.0) / 120
         return formatedValue
     }
     
     func convertStringFromOptInt(value: Int?) -> String{
-        var stringValue: String = "\(value ?? 0)"
+        let stringValue: String = "\(value ?? 0)"
         return stringValue
     }
     
     func setTypes( typeElements: [TypeElement]? ) {
-        firstTitleLabel?.text                  = typeElements?[0].type?.name?.firstUppercased
-        var backgroundColorFirst: String       = viewModel.chosenPokemon?.types?[0].type?.name ?? ""
-        [firstTitleLabel?.backgroundColor: [UIColor (named: backgroundColorFirst)]]
+        firstTitleLabel?.text = typeElements?[0].type?.name?.firstUppercased
         if typeElements?.count == 1 {
             secondTitleLabel?.isHidden = true
         }
         else {
-            secondTitleLabel?.isHidden             = false
-            secondTitleLabel?.text                 = typeElements?[1].type?.name?.firstUppercased
-            var backgroundColorSecond: String      = viewModel.chosenPokemon?.types?[1].type?.name ?? ""
-            [secondTitleLabel?.backgroundColor:[UIColor (named: backgroundColorSecond)]]
+            secondTitleLabel?.isHidden = false
+            secondTitleLabel?.text = typeElements?[1].type?.name?.firstUppercased
         }
     }
     
