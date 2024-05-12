@@ -15,7 +15,7 @@ class PokemonManager {
     
     func getPokemon(completion: @escaping ([Pokemon]?, Error?) -> Void) {
         let urlString = Constants.baseUrl + "pokemon?limit=100000&offset=0"
-        PokemonAPIService().decode(url: urlString) { (pokemonPage: PokemonPage?, error) in
+        PokemonAPIService().getPokemons(url: urlString) { (pokemonPage: PokemonPage?, error) in
             if let error = error {
                 completion(nil, error)
                 return
@@ -31,7 +31,7 @@ class PokemonManager {
     }
     
     func getDetailedPokemon(id: Int, _ completion: @escaping (DetailPokemon) -> () ) {
-        PokemonAPIService().fetchData(url: "https://pokeapi.co/api/v2/pokemon/\(id)", model: DetailPokemon.self) { data in
+        PokemonAPIService().getPokemonDetails(url: "https://pokeapi.co/api/v2/pokemon/\(id)", model: DetailPokemon.self) { data in
             completion(data)
         } failure: { error in
             print(error.localizedDescription)

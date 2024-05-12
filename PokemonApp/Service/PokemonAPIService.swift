@@ -9,7 +9,7 @@ import Foundation
 
 class PokemonAPIService {
     
-    func decode<T: Decodable>(url: String, completion: @escaping (T?, Error?) -> Void) {
+    func getPokemons<T: Decodable>(url: String, completion: @escaping (T?, Error?) -> Void) {
         guard let url = URL(string: url) else {
             completion(nil, NSError(domain: "URL", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
             return
@@ -46,7 +46,7 @@ class PokemonAPIService {
         task.resume()
     }
     
-    func fetchData<T: Decodable>(url: String, model: T.Type, completion: @escaping (T) -> (), failure: @escaping(Error) -> ()) {
+    func getPokemonDetails<T: Decodable>(url: String, model: T.Type, completion: @escaping (T) -> (), failure: @escaping(Error) -> ()) {
         
         guard let url           = URL(string: url) else { return }
         URLSession.shared.dataTask(with: url) { data, response, error in

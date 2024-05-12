@@ -133,17 +133,16 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
     
     //MARK:  didSelectItemAt
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //        let detailVC                      = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? PokemonDetailsViewController
+        let detailVC                      =  PokemonDetailsViewController()
         let chosedPokemon                 = filteredList[indexPath.item]
         listViewModel.getIdFromUrl(url: chosedPokemon.url) { resultId in
             self.pokemonId = resultId!
         }
-        //        detailVC?.viewModel.pokeId        =  Int(pokemonId)
-        //
-        //        guard let detailViewController    = detailVC else { return }
-        //        DispatchQueue.main.async {
-        //        }
-        //        self.navigationController?.pushViewController(detailViewController, animated: true)
+        detailVC.viewModel.pokeId        =  Int(pokemonId)
+        
+        DispatchQueue.main.async {
+        }
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
     //MARK: - Search Bar
