@@ -22,7 +22,7 @@ class PokemonDetailsViewModel {
         guard let pokeId        = pokeId else {
             return
         }
-        pokemonManager.getDetailedPokemon(id: pokeId, { [weak self] pokemon in
+        pokemonManager.getDetailedPokemon(id: pokeId, completion: { [weak self] pokemon in
             self?.chosenPokemon     = pokemon
             self?.onComplete?()
         })

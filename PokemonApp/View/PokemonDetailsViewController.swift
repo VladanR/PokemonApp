@@ -39,13 +39,13 @@ class PokemonDetailsViewController: UIViewController {
         
         configure()
         viewModel.onComplete =  { [weak self] in
-            self?.setupDeteailPage()
+            self?.setupDetailsPage()
         }
         viewModel.setChosenPokemon()
     }
     
     //MARK: - Presentation
-    func setupDeteailPage() {
+    func setupDetailsPage() {
         self.imageView.contentMode = .scaleAspectFit
         self.pokeNameLabel?.text = self.viewModel.chosenPokemon?.name?.firstUppercased
         self.idLabel.text = "#\(self.viewModel.convertStringFromOptInt(value: self.viewModel.chosenPokemon?.id))"

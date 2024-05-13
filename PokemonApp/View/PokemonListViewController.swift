@@ -70,9 +70,9 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
     private func fetchPokemonData() {
         // Show activity indicator
         collectionView.toggleActivityIndicator()
-        
+        let pokemonManager = PokemonManager()
         // Initialize PokemonListViewModel with fetching pokemons
-        listViewModel = PokemonListViewModel { [weak self] pokemons, error in
+        listViewModel = PokemonListViewModel(pokemonManager: pokemonManager) { [weak self] pokemons, error in
             DispatchQueue.main.async {
                 // Hide activity indicator
                 self?.collectionView.toggleActivityIndicator()

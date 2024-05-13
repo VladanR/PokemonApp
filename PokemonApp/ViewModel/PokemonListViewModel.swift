@@ -9,12 +9,13 @@ import Foundation
 
 class PokemonListViewModel {
     
-    private let pokemonManager          = PokemonManager()
+    private let pokemonManager          : PokemonManaging
     var pokemonList                     = [Pokemon]()
     var pokemonDetails                  : DetailPokemon?
     
     
-    init(completion: @escaping ([Pokemon]?, Error?) -> Void) {
+    init(pokemonManager: PokemonManaging, completion: @escaping ([Pokemon]?, Error?) -> Void) {
+        self.pokemonManager = pokemonManager
         pokemonManager.getPokemon { (pokemons, error) in
             if let error = error {
                 completion(nil, error)
