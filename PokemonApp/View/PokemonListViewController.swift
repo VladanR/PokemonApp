@@ -10,7 +10,6 @@ import Kingfisher
 class PokemonListViewController: UICollectionViewController, UISearchBarDelegate {
     
     //MARK: - Variables, Componenets and Outlets
-    //    @IBOutlet weak var collectionView: UICollectionView!
     let customCellId                 = "PokeCell"
     let leftRightPadding             = 15.0
     let searchController             = UISearchController(searchResultsController: nil)
@@ -26,12 +25,14 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
         myImageView.translatesAutoresizingMaskIntoConstraints = false
         return myImageView
     }()
+    
     private lazy var backgroundOfImageView  : UIView = {
         let containerView             = UIView()
         containerView.backgroundColor = UIColor(named: "backgroundColor")
         containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView
     }()
+    
     private lazy var searchNulLabel : UILabel = {
         let label           = UILabel()
         label.text          = "Sorry... \n I don't know anyone by that name."
@@ -124,21 +125,24 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
         let chosedPokemon           = filteredList[indexPath.item]
         cell.cellNameLabel.text     = chosedPokemon.name?.firstUppercased
         
-        listViewModel.getIdFromUrl(url: chosedPokemon.url) { resultId in
+        listViewModel.getPokemonIdFromUrl(url: chosedPokemon.url) { resultId in
             self.pokemonId = resultId!
         }
-        let imageUrl                = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonId).png"
+        let imageUrl = makeImageURL(pokemonId: pokemonId)
         cell.cellImageView.kf.setImage(with: URL(string: imageUrl))
         cell.layer.cornerRadius = 20
         return cell
     }
     
+    func makeImageURL(pokemonId: String) -> String {
+        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonId).png"
+    }
     
     //MARK:  didSelectItemAt
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC                      =  PokemonDetailsViewController()
         let chosedPokemon                 = filteredList[indexPath.item]
-        listViewModel.getIdFromUrl(url: chosedPokemon.url) { resultId in
+        listViewModel.getPokemonIdFromUrl(url: chosedPokemon.url) { resultId in
             self.pokemonId = resultId!
         }
         detailVC.viewModel.pokeId        =  Int(pokemonId)

@@ -1,36 +1,20 @@
 PODS:
-  - CocoaAsyncSocket (7.6.5)
   - Kingfisher (7.11.0)
-  - Loaf (0.7.0)
-  - lottie-ios (4.4.3)
   - SnapKit (5.7.1)
-  - VerticalCardSwiper (2.3.1)
 
 DEPENDENCIES:
-  - CocoaAsyncSocket
   - Kingfisher
-  - Loaf
-  - lottie-ios
   - SnapKit (~> 5.7.0)
-  - VerticalCardSwiper
 
 SPEC REPOS:
   trunk:
-    - CocoaAsyncSocket
     - Kingfisher
-    - Loaf
-    - lottie-ios
     - SnapKit
-    - VerticalCardSwiper
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
-  Loaf: d69937cd00649f3fa260beb8b7aef0a1feb861ef
-  lottie-ios: fcb5e73e17ba4c983140b7d21095c834b3087418
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
-  VerticalCardSwiper: 68df635b354500f86934ea044ade37a264c044c6
 
-PODFILE CHECKSUM: 487facf9590862a8a180157d3f9a33849097f93e
+PODFILE CHECKSUM: 20efc7f5a092f450d49ed483eb0d1b90decdb753
 
 COCOAPODS: 1.15.2

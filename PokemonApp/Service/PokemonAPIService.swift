@@ -66,8 +66,6 @@ class PokemonAPIService {
             }
         }.resume()
     }
-    
-    
 }
 
 func onMain(completion: @escaping () -> Void ) {
