@@ -65,19 +65,19 @@ class PokemonDetailsViewController: UIViewController {
     }
     
     func setProgressAnimates() {
-        let hp      : Int = viewModel.chosenPokemon?.stats?[0].base_stat ?? 0
-        let atk     : Int = viewModel.chosenPokemon?.stats?[1].base_stat ?? 0
-        let def     : Int = viewModel.chosenPokemon?.stats?[2].base_stat ?? 0
-        let spdef   : Int = viewModel.chosenPokemon?.stats?[4].base_stat ?? 0
-        let exp     : Int = viewModel.chosenPokemon?.base_experience ?? 0
+        let healthPoints      : Int = viewModel.chosenPokemon?.stats?[0].base_stat ?? 0
+        let attack     : Int = viewModel.chosenPokemon?.stats?[1].base_stat ?? 0
+        let defense     : Int = viewModel.chosenPokemon?.stats?[2].base_stat ?? 0
+        let speed   : Int = viewModel.chosenPokemon?.stats?[4].base_stat ?? 0
+        let experience     : Int = viewModel.chosenPokemon?.base_experience ?? 0
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
-            self.animateStatBars(value: self.formatFloat(value: hp), bar: self.hpProgressBar)
-            self.animateStatBars(value: self.formatFloat(value: atk), bar: self.atkProgressBar)
-            self.animateStatBars(value: self.formatFloat(value: def), bar: self.defProgressBar)
-            self.animateStatBars(value: self.formatFloat(value: spdef), bar: self.expProgressBar)
-            self.animateStatBars(value: self.formatFloat(value: exp), bar: self.spdProgressBar)
+            self.animateStatBars(value: self.formatFloat(value: healthPoints), bar: self.hpProgressBar)
+            self.animateStatBars(value: self.formatFloat(value: attack), bar: self.atkProgressBar)
+            self.animateStatBars(value: self.formatFloat(value: defense), bar: self.defProgressBar)
+            self.animateStatBars(value: self.formatFloat(value: speed), bar: self.expProgressBar)
+            self.animateStatBars(value: self.formatFloat(value: experience), bar: self.spdProgressBar)
         }
     }
     

@@ -10,7 +10,7 @@ import Foundation
 class PokemonDetailsViewModel {
     var str             = ""
     var chosenPokemon   : DetailPokemon?
-    var pokeId          : Int?
+    var pokemonId          : Int?
     
     private let pokemonManager          = PokemonManager()
     var pokemonList                     = [Pokemon]()
@@ -19,11 +19,11 @@ class PokemonDetailsViewModel {
     
     
     func setChosenPokemon() {
-        guard let pokeId        = pokeId else {
+        guard let pokemonId = pokemonId else {
             return
         }
-        pokemonManager.getDetailedPokemon(id: pokeId, completion: { [weak self] pokemon in
-            self?.chosenPokemon     = pokemon
+        pokemonManager.getDetailedPokemon(id: pokemonId, completion: { [weak self] pokemon in
+            self?.chosenPokemon = pokemon
             self?.onComplete?()
         })
     }
