@@ -7,7 +7,12 @@
 
 import Foundation
 
-class PokemonManager {
+protocol PokemonManaging {
+    func getPokemon(completion: @escaping ([Pokemon]?, Error?) -> Void)
+    func getDetailedPokemon(id: Int, completion: @escaping (DetailPokemon?) -> Void)
+}
+
+class PokemonManager: PokemonManaging {
     
     private struct Constants {
         static let baseUrl = "https://pokeapi.co/api/v2/"
@@ -30,8 +35,9 @@ class PokemonManager {
         }
     }
     
-    func getDetailedPokemon(id: Int, _ completion: @escaping (DetailPokemon) -> () ) {
+    func getDetailedPokemon(id: Int, completion: @escaping (DetailPokemon?) -> Void ) {
         PokemonAPIService().getPokemonDetails(url: "https://pokeapi.co/api/v2/pokemon/\(id)", model: DetailPokemon.self) { data in
+            guard let data = data else { return }
             completion(data)
         } failure: { error in
             print(error.localizedDescription)

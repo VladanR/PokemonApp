@@ -9,13 +9,19 @@ import Foundation
 
 class PokemonAPIService {
     
+    private var session: URLSession
+
+       init(session: URLSession = .shared) {
+           self.session = session
+       }
+    
     func getPokemons<T: Decodable>(url: String, completion: @escaping (T?, Error?) -> Void) {
         guard let url = URL(string: url) else {
             completion(nil, NSError(domain: "URL", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let task = session.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 completion(nil, error)
                 return
@@ -46,16 +52,25 @@ class PokemonAPIService {
         task.resume()
     }
     
-    func getPokemonDetails<T: Decodable>(url: String, model: T.Type, completion: @escaping (T) -> (), failure: @escaping(Error) -> ()) {
+    func getPokemonDetails<T: Decodable>(url: String, model: T.Type, completion: @escaping (T?) -> (), failure: @escaping(Error) -> ()) {
         
         guard let url = URL(string: url) else { return }
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        session.dataTask(with: url) { data, response, error in
+            
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+                let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+                let error = NSError(domain: "HTTP", code: statusCode, userInfo: nil)
+                failure(error)
+                return
+            }
+            
             guard let data = data else {
                 if let error = error {
                     failure(error)
                 }
                 return
             }
+            
             do {
                 let serverData = try JSONDecoder().decode(T.self, from: data)
                 onMain {
