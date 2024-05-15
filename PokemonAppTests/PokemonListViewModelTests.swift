@@ -121,20 +121,20 @@ class PokemonListViewModelTests: XCTestCase {
     }
 }
 
-class MockPokemonManager: PokemonManager {
+class MockPokemonManager: PokemonManaging {
     var mockPokemons: [Pokemon]?
     var mockError: Error?
     override func getPokemon(completion: @escaping ([Pokemon]?, Error?) -> Void) {
         completion(mockPokemons, mockError)
     }
     
-    //    override func getDetailedPokemon(id: Int, _ completion: @escaping (DetailPokemon?) -> Void) {
-    //        if let data = mockPokemons?.first(where: { self.getPokemonIdFromUrl(url: $0.url) == "\(id)" }) {
-    //            completion(DetailPokemon(id: 1, height: 20, weight: 100, name: "ditto", stats: [Stat(base_stat: 100)], types: [TypeElement(slot: 1, type: Species(name: "fire"))], base_experience: 50))
-    //        } else {
-    //            completion(nil)
-    //        }
-    //    }
+        override func getDetailedPokemon(id: Int, _ completion: @escaping (DetailPokemon?) -> Void) {
+            if let data = mockPokemons?.first(where: { self.getPokemonIdFromUrl(url: $0.url) == "\(id)" }) {
+                completion(DetailPokemon(id: 1, height: 20, weight: 100, name: "ditto", stats: [Stat(base_stat: 100)], types: [TypeElement(slot: 1, type: Species(name: "fire"))], base_experience: 50))
+            } else {
+                completion(nil)
+            }
+        }
     private func getPokemonIdFromUrl(url: String) -> String? {
         guard let range = url.range(of: "/pokemon/") else { return nil }
         let removedUrlFromString = url[range.upperBound...]

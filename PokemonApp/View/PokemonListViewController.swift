@@ -145,7 +145,7 @@ class PokemonListViewController: UICollectionViewController, UISearchBarDelegate
         listViewModel.getPokemonIdFromUrl(url: chosedPokemon.url) { resultId in
             self.pokemonId = resultId!
         }
-        detailVC.viewModel.pokeId        =  Int(pokemonId)
+        detailVC.viewModel.pokemonId        =  Int(pokemonId)
         
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(detailVC, animated: true)

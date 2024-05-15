@@ -67,7 +67,7 @@ class PokemonDetailsViewModel {
     }
     
     func setImage() -> String {
-        let imageUrl   = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokeId!).png" 
+        let imageUrl   = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonId!).png" 
         return imageUrl
     }
 }

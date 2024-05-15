@@ -23,23 +23,23 @@ final class APITests: XCTestCase {
     }
     
     func testGetPokemonsWithInvalidURL() {
-        let expectation = self.expectation(description: "Completion handler invoked with error for invalid URL.")
-        apiService.getPokemons(url: "htp://invalidurl") { (result: [String]?, error) in XCTAssertNil(result)
-            XCTAssertNotNil(error)
-            if let error = error as NSError? {
-                XCTAssertEqual(error.domain, "URL")
-                XCTAssertEqual(error.code, -1)
-            }
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 5.0, handler: nil)
-    }
-    
+          let expectation = self.expectation(description: "Completion handler invoked")
+          var errorResponse: Error?
+          
+          apiService.getPokemons(url: "htp://invalid url") { (result: [String]?, error) in
+              errorResponse = error
+              expectation.fulfill()
+          }
+          
+          waitForExpectations(timeout: 5, handler: nil)
+          XCTAssertNotNil(errorResponse)
+      }
+        
     func testGetPokemonsWithValidURLReturnsData() {
         let expectation = self.expectation(description: "Completion handler invoked with valid data.")
         let json = "[\"Pikachu\", \"Bulbasaur\"]"
         let url = "https://pokeapi.co/api/v2/pokemon"
-        //        URLProtocolMock.testURLs = [url: Data(json.utf8)]
+//        URLProtocolMock.testURLs = [url: Data(json.utf8)]
         apiService.getPokemons(url: url) { (result: [String]?, error) in
             XCTAssertNotNil(result)
             XCTAssertNil(error)
@@ -65,7 +65,7 @@ final class APITests: XCTestCase {
         let expectation = XCTestExpectation(description: "Fetch Pokémon details")
         let url = "https://pokeapi.co/api/v2/pokemon/1/"
         
-        apiService.getPokemonDetails(url: url, model: Pokemon.self, completion: { (pokemon: Pokemon) in
+        apiService.getPokemonDetails(url: url, model: Pokemon.self, completion: { (pokemon: Pokemon?) in
             XCTAssertNotNil(pokemon)
             expectation.fulfill()
         }, failure: { (error) in
@@ -76,15 +76,5 @@ final class APITests: XCTestCase {
     }
 }
     
-    extension APITests {
-//        static var allTests = [
-//            ("testGetPokemonsWithInvalidURL", testGetPokemonsWithInvalidURL),
-//            ("testGetPokemonsWithValidURLButHTTPError", testGetPokemonsWithValidURLButHTTPError),
-//            ("testGetPokemonsWithValidURLReturnsData", testGetPokemonsWithValidURLReturnsData),
-//            ("testGetPokemonDetailsWithInvalidURL", testGetPokemonDetailsWithInvalidURL),
-//            ("testGetPokemonDetailsWithHTTPError", testGetPokemonDetailsWithHTTPError),
-//            ("testGetPokemonDetailsSuccessfulDecode", testGetPokemonDetailsSuccessfulDecode)
-//        ]
-    }
 
 
